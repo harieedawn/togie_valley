@@ -1,0 +1,9 @@
+{
+  "appId": "com.togie.valley",
+  "appName": "Togie Valley",
+  "webDir": "www",
+  "backgroundColor": "#1d2750",
+  "android": {
+    "backgroundColor": "#1d2750"
+  }
+}

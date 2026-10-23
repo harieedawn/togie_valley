@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Togie Valley - SFX Lab</title>
+<style>body{font:14px system-ui,sans-serif;margin:12px;background:#fbf4e4;color:#4a3a2a}button{margin:2px;padding:6px 10px;border:1px solid #c9945a;border-radius:8px;background:#fff;color:inherit}h3{margin:14px 0 4px}small{color:#8a7a68}.row{margin:3px 0}</style></head><body>
+<h2>Togie Valley - Phòng thử âm thanh</h2>
+<div class="row">Âm lượng: <input id="vol" type="range" min="0" max="100" value="70"> <button id="all">Phát tất cả</button> <button id="stop">Dừng</button></div>
+<h3>Thử bước chân</h3><div id="foot"></div>
+<h3>Thử nhạc bắt cá + lời thoại</h3><div id="fan"></div>
+<div id="list"></div>
+<script src="js/dsp.js"></script><script src="js/sfx_bank.js"></script>
+<script>
+(function () {
+  var Dsp = window.Game.Dsp, Bank = window.Game.SfxBank, ctx = null, gain = null, cache = {}, timer = null;
+  function init() { if (ctx) return null; ctx = new (window.AudioContext || window.webkitAudioContext)(); gain = ctx.createGain(); gain.gain.value = 0.7 * 0.7; gain.connect(ctx.destination); }
+  document.getElementById('vol').oninput = function () { init(); var v = this.value / 100; gain.gain.value = v * v; };
+  function buf(id, k, v) {
+    var key = id + '|' + k + '|' + v; if (cache[key]) return cache[key];
+    var x = Bank.render(id, k, v), ch = Array.isArray(x) ? x : [x], b = ctx.createBuffer(ch.length, ch[0].length, Dsp.SR);
+    ch.forEach(function (c, i) { b.copyToChannel(c, i); });
+    var pk = Dsp.peak(x), sq = 0; ch[0].forEach(function (s) { sq += s * s; });
+    b.info = 'peak ' + (20 * Math.log10(pk)).toFixed(1) + ' dB, RMS ' + (10 * Math.log10(sq / ch[0].length)).toFixed(1) + ' dB, ' + Math.round(1000 * ch[0].length / Dsp.SR) + ' ms';
+    return (cache[key] = b);
+  }
+  function play(id, k, v) { init(); ctx.resume(); var s = ctx.createBufferSource(); s.buffer = buf(id, k, v); s.connect(gain); s.start(); return s.buffer.duration; }
+  var list = document.getElementById('list'), seq = [];
+  Bank.ids.forEach(function (id) {
+    var rc = Bank.recipes[id], h = document.createElement('h3'), info = document.createElement('small'), d = document.createElement('div');
+    h.textContent = id + ' (' + rc.group + ') '; h.appendChild(info); list.appendChild(h); list.appendChild(d);
+    rc.sets.forEach(function (st) {
+      for (var v = 0; v < rc.variants; v++) (function (k, v) {
+        var b = document.createElement('button'); b.textContent = (k ? k + ' ' : '') + '#' + (v + 1);
+        b.onclick = function () { play(id, k, v); info.textContent = buf(id, k, v).info; }; d.appendChild(b);
+        if (v === 0) seq.push([id, k]);
+      })(st.k, v);
+    });
+  });
+  var foot = document.getElementById('foot');
+  ['Grass', 'Path', 'Sand', 'Stone', 'Wood', 'Creak', 'Room', 'Snow'].forEach(function (k) {
+    [['đi', 330, 1], ['chạy', 230, 1.12], ['chạy nước rút', 160, 1.2]].forEach(function (sp) {
+      var b = document.createElement('button'), n = 0; b.textContent = k.toLowerCase() + ' - ' + sp[0];
+      b.onclick = function () { for (var i = 0; i < 8; i++) setTimeout(function () { init(); ctx.resume(); var s = ctx.createBufferSource(); s.buffer = buf('step' + k, '', n % 4); s.playbackRate.value = (n++ % 2 ? 1.03 : 0.97); var g = ctx.createGain(); g.gain.value = sp[2]; s.connect(g); g.connect(gain); s.start(); }, i * sp[1]); };
+      foot.appendChild(b);
+    });
+    foot.appendChild(document.createElement('br'));
+  });
+  var fan = document.getElementById('fan');
+  [1, 2, 3, 4, 5].forEach(function (t) { var b = document.createElement('button'); b.textContent = 'Cá bậc ' + t; b.onclick = function () { play('catch', String(t), 0); }; fan.appendChild(b); });
+  var tk = document.createElement('button'); tk.textContent = 'Lời thoại (tiệm / bác cá)';
+  tk.onclick = function () { [330, 250].forEach(function (base, j) { [0, 2, 4, 0, -3, 2, 4].forEach(function (st, i) { setTimeout(function () { init(); var s = ctx.createBufferSource(); s.buffer = buf('talk', '', i % 4); s.playbackRate.value = base / 330 * Math.pow(2, st / 12); s.connect(gain); s.start(); }, j * 900 + i * 75); }); }); };
+  fan.appendChild(tk);
+  document.getElementById('all').onclick = function () { var i = 0; clearInterval(timer); timer = setInterval(function () { if (i >= seq.length) { clearInterval(timer); return; } play(seq[i][0], seq[i][1], 0); i++; }, 900); };
+  document.getElementById('stop').onclick = function () { clearInterval(timer); };
+})();
+</script></body></html>
