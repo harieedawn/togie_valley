@@ -1,0 +1,55 @@
+/* Togie Valley - menus.css (Stage 15C C2): premium title screen + pause menu tile grid. Transform/opacity animation only. */
+#tv-title.mn { background: linear-gradient(#a9dcf2 0 36%, #c3e8ee 36% 60%, #fdebbd 60% 82%, #f7cf8f 82% 100%); gap: 10px; justify-content: center;
+  padding: calc(14px + var(--safe-t, 0px)) calc(14px + var(--safe-r, 0px)) calc(14px + var(--safe-b, 0px)) calc(14px + var(--safe-l, 0px)); box-sizing: border-box; }
+.mn .mn-sun { position: absolute; right: 12%; top: calc(7 * var(--uvh, 1vh)); width: 64px; height: 64px; animation: mn-pulse 6s ease-in-out infinite; }
+.mn .mn-cloud { position: absolute; left: 0; top: var(--y, 12%); width: var(--w, 96px); animation: mn-drift var(--d, 80s) linear infinite; animation-delay: var(--dl, 0s); }
+.mn .mn-cloud svg, .mn .mn-sun svg { display: block; width: 100%; height: auto; }
+.mn .mn-lay { position: absolute; left: -20%; width: 140%; bottom: 0; height: calc(var(--h) * var(--uvh, 1vh)); --hh: calc(var(--h) * var(--uvh, 1vh)); }
+.mn .mn-lay > svg.mn-hill { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mn .mn-l1 { --h: 46; animation: mn-sway 17s ease-in-out infinite alternate; --sw: 1%; } .mn .mn-l2 { --h: 36; animation: mn-sway 12s ease-in-out infinite alternate; --sw: 2.4%; }
+.mn .mn-l3 { --h: 22; animation: mn-sway 9s ease-in-out infinite alternate-reverse; --sw: 4%; }
+.mn .mn-prop { position: absolute; bottom: calc(var(--hh) * var(--by, .66) - 6px); left: var(--x, 50%); width: var(--w, 60px); transform: translateX(-50%); } .mn .mn-prop svg { display: block; width: 100%; height: auto; }
+.mn .mn-leaf { position: absolute; top: -24px; width: 16px; height: 16px; opacity: 0; animation: tv-fall 12s linear infinite; } .mn .mn-leaf svg { display: block; width: 100%; height: 100%; }
+@keyframes mn-sway { from { transform: translateX(calc(var(--sw) * -1)); } to { transform: translateX(var(--sw)); } }
+@keyframes mn-drift { from { transform: translateX(calc(-40 * var(--uvw, 1vw))); } to { transform: translateX(calc(115 * var(--uvw, 1vw))); } }
+@keyframes mn-pulse { 50% { transform: scale(1.07); } }
+@keyframes mn-bounce { 0%, 100% { transform: translateY(0) rotate(-1.2deg); } 50% { transform: translateY(-7px) rotate(1.2deg); } }
+.mn.still .tv-deco *, .mn.still .mn-logo, .mn.still .mn-continue { animation: none !important; } .mn.still .mn-leaf { display: none; }
+@media (prefers-reduced-motion: reduce) { .mn .tv-deco *, .mn .mn-logo, .mn .mn-continue { animation: none !important; } .mn .mn-leaf { display: none; } }
+/* logo */
+.mn .mn-logo { display: flex; flex-direction: column; align-items: center; margin: 0; filter: drop-shadow(0 6px 0 var(--line)); animation: mn-bounce 3.4s ease-in-out infinite; }
+.mn .mn-wheat { display: block; margin-bottom: -6px; transform: rotate(-6deg); } .mn .mn-wheat svg { width: 64px; height: 64px; }
+.mn .mn-logo .w1, .mn .mn-logo .w2 { display: block; padding-top: 4px; font-family: var(--font-d); font-weight: 800; line-height: 1.2; letter-spacing: 1px; -webkit-text-stroke: 11px var(--line); paint-order: stroke fill; }
+.mn .mn-logo .w1 { font-size: clamp(56px, calc(19 * var(--uvw, 1vw)), 88px); color: var(--gold-hi); } .mn .mn-logo .w2 { margin-top: -10px; font-size: clamp(38px, calc(13 * var(--uvw, 1vw)), 60px); color: var(--green-hi); transform: rotate(-2deg); }
+.mn .mn-tag { margin: 2px 0 4px; padding: 2px 16px 4px; font: 600 16px/1.4 var(--font-d); background: rgba(255,244,217,.92); border: var(--bw) solid var(--line); border-radius: 999px; box-shadow: var(--lift); }
+/* main buttons */
+.mn .mn-main { width: min(calc(82 * var(--uvw, 1vw)), 330px); display: flex; flex-direction: column; gap: 12px; }
+#tv-title .mn-btn { width: 100%; min-height: 60px; font-size: 22px; border-radius: var(--r-l); gap: 8px; animation: none; }
+#tv-title .mn-continue { flex-direction: column; gap: 0; min-height: 76px; padding: 6px 12px 8px; animation: tv-breathe 2.8s ease-in-out infinite; } #tv-title .mn-continue:active { animation: none; }
+.mn .mn-continue .mn-l { display: flex; align-items: center; gap: 8px; font-size: 25px; line-height: 1.2; }
+.mn .mn-sum { display: block; max-width: 100%; font: 700 13px/1.3 var(--font-body); -webkit-text-stroke: 0; color: #fff; opacity: .95; white-space: normal; text-align: center; text-shadow: 0 2px 0 rgba(0,0,0,.18); }
+.mn .mn-row { display: flex; gap: 10px; } #tv-title .mn-row .mn-btn { flex: 1 1 0; min-width: 0; min-height: 56px; font-size: 17px; padding: 2px 4px; gap: 5px; white-space: nowrap; } #tv-title .mn-row .mn-btn .tvi { width: 22px; height: 22px; }
+#tv-title .mn-btn .tvi { width: 26px; height: 26px; flex: none; }
+.mn.picking .mn-main, .mn.picking .mn-tag { display: none; } .mn .mn-pickhead { margin: 0; padding: 2px 18px 4px; font: 800 20px var(--font-d); background: var(--paper); border: var(--bw) solid var(--line); border-radius: 999px; box-shadow: var(--lift); }
+.mn.picking .mn-wheat { display: none; } .mn.picking .mn-logo .w1 { font-size: 42px; } .mn.picking .mn-logo .w2 { font-size: 30px; }
+.mn.under { z-index: 4; }
+.mn .mn-back { width: min(calc(60 * var(--uvw, 1vw)), 240px); }
+@media (orientation: landscape) and (max-height: 520px) {
+  #tv-title.mn { flex-direction: row; flex-wrap: wrap; align-content: center; gap: 4px 36px; }
+  .mn .mn-logo { flex: 0 0 auto; } .mn .mn-logo .w1 { font-size: 52px; } .mn .mn-logo .w2 { font-size: 36px; } .mn .mn-wheat svg { width: 40px; height: 40px; }
+  .mn .mn-tag { display: none; } .mn .mn-main { width: min(330px, 46%); gap: 8px; }
+  #tv-title .mn-btn { min-height: 50px; font-size: 19px; } #tv-title .mn-continue { min-height: 62px; } .mn .mn-continue .mn-l { font-size: 21px; }
+  .mn.picking { flex-direction: column; }
+}
+/* pause menu */
+.mn-pause { text-align: center; } .mn-pause h2 { margin: 2px 0 16px; } .mn-farm { margin: 0 0 12px; font: 700 14px/1.4 var(--font-body); color: var(--wood-d); }
+.mn-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px; }
+.mn-tile { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 96px; padding: 8px 4px 6px; font: 800 16px/1.2 var(--font-d); color: var(--ink); cursor: pointer; touch-action: manipulation;
+  background: var(--paper); border: var(--bw) solid var(--line); border-radius: var(--r-l); box-shadow: inset 0 3px 0 #fff, inset 0 -4px 0 var(--paper-3), 0 4px 0 var(--line); transition: transform .14s var(--ease-pop); }
+.mn-tile:active { transform: scale(.94); box-shadow: inset 0 3px 0 #fff, inset 0 -4px 0 var(--paper-3), 0 1px 0 var(--line); }
+.mn-tile .tvi { width: 44px; height: 44px; } .mn-tile.warn { background: #fde3d9; } .mn-tile.warn { box-shadow: inset 0 3px 0 #fff, inset 0 -4px 0 #f5c2b2, 0 4px 0 var(--line); }
+.mn-badge { position: absolute; top: -9px; right: -6px; min-width: 24px; padding: 0 7px; font: 800 13px/20px var(--font-d); color: #fff; background: var(--coral); border: 2.5px solid var(--line); border-radius: 12px; box-shadow: 0 2px 0 var(--shade); } .mn-badge.ok { background: var(--green); }
+@media (orientation: landscape) and (max-height: 520px) {
+  .tv-panel.tv-wide.mn-pause { width: min(calc(100 * var(--uvw, 1vw) - 24px), 560px); } .mn-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 8px; }
+  .mn-tile { min-height: 74px; font-size: 14.5px; gap: 2px; } .mn-tile .tvi { width: 34px; height: 34px; } .mn-farm { margin-bottom: 8px; }
+}

@@ -1,0 +1,31 @@
+/* Togie Valley - uiscale.css (Stage 14C): UI scale, safe areas, tap targets, panel scrolling.
+   #ui is scaled by transform (ui_scale.js), so env() insets are divided by the scale to stay real-size. */
+#ui {
+  --ui-scale: 1;
+  --safe-t: calc(env(safe-area-inset-top, 0px) / var(--ui-scale));
+  --safe-r: calc(env(safe-area-inset-right, 0px) / var(--ui-scale));
+  --safe-b: calc(env(safe-area-inset-bottom, 0px) / var(--ui-scale));
+  --safe-l: calc(env(safe-area-inset-left, 0px) / var(--ui-scale));
+  --tap: calc(40px / var(--ui-scale));
+}
+#ui .tv-btn { min-height: max(48px, var(--tap)); min-width: max(48px, var(--tap)); }
+#ui .tv-slot { min-width: var(--tap); min-height: var(--tap); }
+#ui #tv-menu, #ui #tv-rot .tv-btn { width: max(48px, var(--tap)); }
+#ui .tv-fishhud .tv-btn { min-height: max(48px, var(--tap)); }
+#ui .tv-hud-chip { min-height: max(42px, var(--tap)); }
+#ui #tv-hotbar { max-width: calc(100% - 8px - var(--safe-l) - var(--safe-r)); overflow: visible; }
+#ui .tv-scrim { overflow: hidden; }
+#ui .tv-panel { max-height: calc(100% - 4px); overflow-y: auto; -webkit-overflow-scrolling: touch; }
+#ui .tv-dialog { overflow: visible; }
+#ui .tv-dialog-scroll { max-height: calc(var(--uvh, 1vh) * 100 - 150px - var(--safe-b) - var(--safe-t)); overflow-y: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+#ui .tv-dialog-scroll::-webkit-scrollbar { display: none; }
+#ui .tv-reel { height: min(calc(60 * var(--uvh, 1vh)), 340px); }
+.tv-uis { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.tv-uis .tv-btn { flex: 1 1 70px; padding: 4px 8px 6px; font-size: 16px; }
+/* narrow portrait phones: 9 slots cannot fit one row at >= 40 px, so the hotbar wraps (5 + 4) and the bottom widgets move up */
+#ui #tv-hotbar { flex-wrap: wrap; justify-content: center; width: max-content; }
+@media (max-width: 420px) and (orientation: portrait) {
+  #ui #tv-hotbar { width: calc(100% - 8px - var(--safe-l) - var(--safe-r)); }
+  #ui #tv-action { bottom: calc(150px + var(--safe-b)); }
+  #ui .tv-fishhud { bottom: calc(146px + var(--safe-b)); }
+}

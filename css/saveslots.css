@@ -1,0 +1,15 @@
+/* Togie Valley - saveslots.css (Stage 14A): slot cards on the title screen */
+.sv-list { width: min(440px, 100%); max-height: calc(56 * var(--uvh, 1vh)); overflow-y: auto; display: flex; flex-direction: column; gap: 10px; padding: 2px 2px 6px; -webkit-overflow-scrolling: touch; }
+.sv-slot { text-align: left; padding: 10px 12px 12px; background: var(--paper); border: 3px solid var(--line); border-radius: 16px; box-shadow: 0 4px 0 var(--line); display: flex; flex-direction: column; gap: 2px; }
+.sv-slot.on { background: #fff8e6; border-color: var(--green-d); box-shadow: 0 4px 0 var(--green-d); }
+.sv-slot.empty { opacity: .92; }
+.sv-name { font-family: var(--font-d); font-weight: 800; font-size: 19px; color: var(--ink); }
+.sv-tag { font-size: 12px; font-weight: 700; padding: 1px 8px; margin-left: 6px; border-radius: 10px; background: var(--green); color: #fff; vertical-align: middle; }
+.sv-meta { font-size: 15px; font-weight: 600; color: var(--ink); } .sv-sub { font-size: 13px; color: var(--wood-d); }
+.sv-main { display: flex; margin-top: 6px; } .sv-main .tv-btn { flex: 1; min-height: 48px; }
+.sv-row { display: flex; gap: 6px; margin-top: 6px; flex-wrap: wrap; } .sv-row .tv-btn { flex: 1 1 0; min-width: 64px; min-height: 48px; padding: 2px 6px; font-size: 14px; }
+.sv-modal { position: absolute; inset: 0; z-index: 5; display: flex; align-items: center; justify-content: center; padding: 16px; background: rgba(74,47,26,.45); }
+.sv-card { width: min(420px, 100%); padding: 16px; display: flex; flex-direction: column; gap: 10px; text-align: center; }
+.sv-card h2 { margin: 0; font-family: var(--font-d); color: var(--ink); }
+.sv-input, .sv-ta { width: 100%; box-sizing: border-box; font: 600 17px var(--font-body); color: var(--ink); background: #fff; border: 3px solid var(--line); border-radius: 12px; padding: 10px; }
+.sv-ta { min-height: 110px; resize: none; font-size: 13px; } .sv-hint { font-size: 13px; color: var(--wood-d); }

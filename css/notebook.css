@@ -1,0 +1,38 @@
+/* Togie Valley - notebook.css (Stage 12): notebook, goals, kitchen, buff chip, celebration. Uses tokens from ui.css. */
+#tv-buff { position: static; min-height: 40px; padding: 3px 10px 3px 8px; gap: 6px; display: flex; align-items: center; }
+#tv-buff .txt { display: flex; flex-direction: column; line-height: 1.1; }
+#tv-buff b { font-family: var(--font-d); font-size: 13px; font-weight: 700; }
+#tv-buff i { font-style: normal; font-size: 11px; opacity: .75; }
+.nb-tabs { display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px 8px; scrollbar-width: none; }
+.nb-tabs::-webkit-scrollbar { display: none; }
+.nb-tabs .tv-btn { flex: 0 0 auto; min-height: 48px; padding: 2px 12px; font-size: 14px; }
+.nb-tabs .tv-btn.on { background: var(--green); }
+.nb-ent, .nb-goal, .tv-cook .rec { display: flex; gap: 10px; align-items: center; margin: 8px 0; padding: 8px 10px; background: #fffaf0; border: 2.5px solid var(--line); border-radius: 14px; }
+.nb-ent.locked { opacity: .6; }
+.nb-ent .ic, .nb-goal .ic, .tv-cook .ic { flex: 0 0 auto; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; }
+.nb-ent .tx, .nb-goal .tx { flex: 1; min-width: 0; font-size: 13px; line-height: 1.4; }
+.nb-ent .tx b, .nb-goal .tx b { display: block; font-family: var(--font-d); font-size: 15px; font-weight: 700; }
+.nb-ent .tx small, .nb-goal .tx small { display: block; opacity: .7; }
+.nb-ent .tx span, .nb-goal .tx span { display: block; }
+.nb-goal.done { background: #eef8d8; }
+.nb-goal .tv-bar { margin: 4px 0 2px; height: 12px; }
+.tv-cook .rec.locked { opacity: .65; }
+.tv-cook .info { flex: 1; min-width: 0; font-size: 13px; line-height: 1.4; }
+.tv-cook .info b { font-family: var(--font-d); font-size: 16px; font-weight: 700; }
+.tv-cook .ings { display: flex; flex-wrap: wrap; gap: 4px 10px; margin: 2px 0; }
+.tv-cook .ing { display: inline-flex; align-items: center; gap: 2px; color: #b4472f; }
+.tv-cook .ing.ok { color: #3f7a2f; }
+.tv-cook .eff { display: flex; align-items: center; gap: 4px; font-weight: 600; }
+.tv-cook .nt { opacity: .75; font-size: 12px; }
+.tv-cook .act { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 64px; }
+.tv-cook .act .tv-btn { min-width: 64px; min-height: 48px; }
+.tv-cook .act small { font-size: 11px; text-align: center; }
+.tv-celebrate { position: relative; overflow: hidden; text-align: center; padding: 18px 12px 12px; }
+.tv-celebrate h2 { margin: 6px 0; }
+.tv-celebrate p { margin: 6px 0 14px; line-height: 1.5; }
+.tv-celebrate .big { display: inline-block; animation: nb-pop .7s var(--ease-out, ease-out) both; }
+.tv-celebrate .burst { position: absolute; inset: 0; pointer-events: none; }
+.tv-celebrate .burst i { position: absolute; top: -12px; width: 9px; height: 14px; border-radius: 3px; opacity: 0; animation: nb-fall 3s linear infinite; }
+@keyframes nb-pop { 0% { transform: scale(.3); } 70% { transform: scale(1.18); } 100% { transform: scale(1); } }
+@keyframes nb-fall { 0% { transform: translateY(0) rotate(0); opacity: 1; } 100% { transform: translateY(420px) rotate(520deg); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .tv-celebrate .burst i, .tv-celebrate .big { animation: none; } .tv-celebrate .burst { display: none; } }

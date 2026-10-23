@@ -1,0 +1,44 @@
+/* Google Sans variable (wght 400-700, OFL, full Vietnamese). Display font "Baloo 2" comes from Google Fonts via index.html. */
+@font-face {
+  font-family: "Google Sans"; font-style: normal; font-weight: 400 700; font-display: swap;
+  src: url("../fonts/gsans-vf.woff") format("woff");
+}
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #1d2750;
+  overscroll-behavior: none;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#game {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  outline: none;
+}
+
+/* UI overlay root: transparent to input; interactive children opt in with pointer-events:auto. */
+#ui {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  font-family: "Google Sans", ui-rounded, "Nunito", system-ui, sans-serif;
+}
+
+#ui .hit,
+#ui button {
+  pointer-events: auto;
+}

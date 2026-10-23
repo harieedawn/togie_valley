@@ -1,0 +1,80 @@
+/* Togie Valley - panels.css (Stage 4 + 4.5B theme): folder tabs, grids, tooltip card, chest, skills, title screen. Tokens live in ui.css. */
+.tv-panel.tv-wide { width: min(calc(calc(100 * var(--uvw, 1vw)) - 16px - var(--safe-l) - var(--safe-r)), 420px); }
+
+/* folder-style tabs */
+.tv-tabs { display: flex; align-items: flex-end; gap: 4px; margin: 0 -16px 14px; padding: 4px 12px 0; border-bottom: var(--bw) solid var(--line); overflow-x: auto; scrollbar-width: none; }
+.tv-tabs::-webkit-scrollbar { display: none; }
+.tv-tabs .tv-btn { --b: var(--paper-3); --b-hi: var(--paper-2); flex: 1 1 auto; min-width: 0; min-height: 48px; padding: 2px 8px 4px; gap: 4px; font-size: 14px; white-space: nowrap; color: var(--ink); -webkit-text-stroke: 0; border-radius: 14px 14px 0 0; margin-bottom: -3px; box-shadow: inset 0 3px 0 var(--b-hi); opacity: .9; }
+.tv-tabs .tv-btn .tvi { width: 20px; height: 20px; }
+.tv-tabs .tv-btn:active { transform: translateY(2px); box-shadow: inset 0 3px 0 var(--b-hi); }
+.tv-tabs .tv-btn.on { --b: var(--paper); --b-hi: #fff; min-height: 56px; padding-top: 6px; border-bottom-color: var(--paper); opacity: 1; z-index: 1; }
+
+/* slot grids (backpack / container): soft-tinted tiles on a tray */
+.tv-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 5px; padding: 8px; background: var(--paper-3); border: 2.5px solid rgba(91,58,41,.35); border-radius: var(--r-l); box-shadow: inset 0 3px 0 rgba(91,58,41,.12); }
+.tv-grid .tv-slot { width: 100%; height: auto; aspect-ratio: 1; }
+.tv-grid .tv-slot.pick { z-index: 2; transform: scale(1.08); border-color: var(--coral-d); }
+.tv-slot.empty { --tint: rgba(91,58,41,.07); border-style: dashed; border-color: rgba(91,58,41,.26); box-shadow: inset 0 3px 0 rgba(91,58,41,.1); }
+.tv-grid .tv-slot .cnt { font-size: 15px; }
+
+/* chest: wood-toned */
+.tv-chest { border-color: var(--wood-d); background: #fdeac0; }
+.tv-chest h2 { background: var(--wood); -webkit-text-stroke-color: var(--wood-d); box-shadow: inset 0 3px 0 var(--wood-hi), 0 3px 0 var(--shade);
+  background-image: repeating-linear-gradient(90deg, rgba(0,0,0,.09) 0 2px, transparent 2px 28px); }
+.tv-chest h2::before, .tv-chest h2::after { background: var(--wood-d); }
+.tv-chest .tv-grid { background: #e7c48d; border-color: var(--wood-d); }
+.tv-chest::before { background-image: radial-gradient(circle at 25% 25%, rgba(122,74,39,.38) 1.5px, transparent 2px), radial-gradient(circle at 75% 75%, rgba(122,74,39,.38) 1.5px, transparent 2px); }
+
+.tv-sub { margin: 12px 2px 6px; font-family: var(--font-d); font-weight: 700; font-size: 15px; line-height: 1.4; color: var(--wood-d); }
+.tv-sub .tvi { margin-top: -3px; }
+
+/* item tooltip card */
+.tv-tip { min-height: 46px; margin-top: 12px; padding: 8px 12px 9px; font-size: 14px; line-height: 1.45; background: #fffaf0; border: 2.5px solid var(--line-soft); border-radius: var(--r-m); box-shadow: 0 3px 0 rgba(91,58,41,.2); }
+.tv-tip b { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; font-family: var(--font-d); font-weight: 700; font-size: 16px; line-height: 1.4; }
+
+/* skills */
+.tv-bar { height: 16px; margin: 4px 0 12px; overflow: hidden; background: var(--paper-4); border: 2.5px solid var(--line); border-radius: 9px; box-shadow: inset 0 2px 0 rgba(91,58,41,.2); }
+.tv-bar > i { display: block; height: 100%; background: var(--green); box-shadow: inset 0 3px 0 var(--green-hi); transform-origin: 0 50%; animation: tv-grow .6s var(--ease-out); }
+@keyframes tv-grow { from { transform: scaleX(0); } }
+.tv-skill b { display: flex; align-items: center; gap: 6px; font-family: var(--font-d); font-weight: 700; font-size: 17px; line-height: 1.4; }
+.tv-skill small { display: block; font-size: 13px; opacity: .75; }
+
+.tv-ta { width: 100%; min-height: 76px; padding: 8px; font: 12px/1.4 ui-monospace, Menlo, Consolas, monospace; color: var(--ink); background: #fffaf0; border: var(--bw) solid var(--line-soft); border-radius: var(--r-m); box-shadow: inset 0 3px 0 rgba(91,58,41,.1); }
+.tv-fly { position: fixed; z-index: 9999; pointer-events: none; transition: transform .28s ease-in, opacity .28s; }
+
+/* ---------- title screen ---------- */
+#tv-title { position: absolute; inset: 0; z-index: 50; pointer-events: auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; overflow: hidden; text-align: center;
+  background: linear-gradient(#a9dcf2 0%, #d8f0ee 42%, #fdebbd 74%, #f7cf8f 100%); padding: calc(16px + var(--safe-t)) 16px calc(16px + var(--safe-b)); }
+#tv-title > :not(.tv-deco) { position: relative; z-index: 1; }
+.tv-deco { position: absolute; inset: 0; z-index: 0; pointer-events: none; overflow: hidden; }
+.tv-cloud { position: absolute; left: var(--x, 10%); top: var(--y, 10%); width: 110px; height: 34px; border-radius: 20px; background: #fff; box-shadow: 0 5px 0 rgba(110,160,190,.35); animation: tv-drift var(--d, 80s) linear infinite; animation-delay: var(--dl, 0s); }
+.tv-cloud::before, .tv-cloud::after { content: ""; position: absolute; background: #fff; border-radius: 50%; box-shadow: 0 5px 0 rgba(110,160,190,.35); }
+.tv-cloud::before { left: 18px; top: -18px; width: 44px; height: 44px; } .tv-cloud::after { left: 52px; top: -26px; width: 52px; height: 52px; }
+.tv-cloud.c1 { --x: 8%; --y: 9%; --d: 90s; --dl: -20s; } .tv-cloud.c2 { --x: 55%; --y: 20%; --d: 70s; --dl: -50s; transform-origin: 0 0; scale: .75; }
+.tv-cloud.c3 { --x: 30%; --y: 40%; --d: 110s; --dl: -80s; scale: .6; } .tv-cloud.c4 { --x: 70%; --y: 5%; --d: 100s; --dl: -35s; scale: .85; }
+@keyframes tv-drift { from { transform: translateX(calc(-60 * var(--uvw, 1vw))); } to { transform: translateX(calc(110 * var(--uvw, 1vw))); } }
+.tv-hill { position: absolute; bottom: -14%; border: var(--bw) solid var(--line); border-radius: 50% 50% 0 0; }
+.tv-hill.hill-a { left: -30%; width: 120%; height: 36%; background: #a4d977; } .tv-hill.hill-b { right: -40%; width: 120%; height: 28%; background: #84c45f; }
+.tv-leaf { position: absolute; top: -24px; width: 14px; height: 14px; border-radius: 0 100% 0 100%; border: 2px solid var(--line); opacity: 0; animation: tv-fall 12s linear infinite; }
+.tv-leaf.l1 { background: var(--green); } .tv-leaf.l2 { background: var(--gold); } .tv-leaf.l3 { background: var(--coral-hi); }
+@keyframes tv-fall {
+  0% { transform: translate(0, 0) rotate(0); opacity: 0; } 8% { opacity: 1; }
+  30% { transform: translate(34px, calc(30 * var(--uvh, 1vh))) rotate(150deg); } 60% { transform: translate(-26px, calc(62 * var(--uvh, 1vh))) rotate(300deg); }
+  92% { opacity: 1; } 100% { transform: translate(24px, calc(108 * var(--uvh, 1vh))) rotate(520deg); opacity: 0; }
+}
+#tv-title h1 { display: flex; flex-direction: column; align-items: center; margin: 0; filter: drop-shadow(0 6px 0 var(--line)); }
+#tv-title .logo-ico { display: block; margin-bottom: -6px; transform: rotate(-6deg); } #tv-title .logo-ico svg { width: 64px; height: 64px; }
+#tv-title .w1, #tv-title .w2 { display: block; padding-top: 4px; font-family: var(--font-d); font-weight: 800; line-height: 1.2; letter-spacing: 1px; -webkit-text-stroke: 11px var(--line); paint-order: stroke fill; }
+#tv-title .w1 { font-size: clamp(56px, calc(19 * var(--uvw, 1vw)), 88px); color: var(--gold-hi); }
+#tv-title .w2 { margin-top: -10px; font-size: clamp(38px, calc(13 * var(--uvw, 1vw)), 60px); color: var(--green-hi); transform: rotate(-2deg); }
+#tv-title p { margin: 0 0 6px; padding: 2px 16px 4px; font-family: var(--font-d); font-weight: 600; font-size: 18px; line-height: 1.4; background: rgba(255,244,217,.9); border: var(--bw) solid var(--line); border-radius: 999px; box-shadow: var(--lift); }
+#tv-title .tv-btn { width: min(calc(72 * var(--uvw, 1vw)), 280px); min-height: 60px; font-size: 24px; border-radius: var(--r-l); }
+@media (max-height: 430px) {
+  #tv-title { gap: 8px; } #tv-title .logo-ico svg { width: 36px; height: 36px; }
+  #tv-title .w1 { font-size: 46px; } #tv-title .w2 { font-size: 32px; margin-top: -8px; } #tv-title p { font-size: 15px; margin-bottom: 2px; }
+  #tv-title .tv-btn { min-height: 52px; font-size: 20px; }
+}
+@media (prefers-reduced-motion: reduce) { .tv-cloud { transform: none; } .tv-leaf { display: none; } }
+@media (max-height: 430px) { /* landscape phones: compact panels so Close stays near the fold */
+  .tv-panel { padding: 12px 14px 10px; } .tv-tabs { margin: 0 -14px 8px; } .tv-tabs .tv-btn { min-height: 48px; } .tv-tabs .tv-btn.on { min-height: 52px; }
+  .tv-tip { min-height: 0; margin-top: 8px; padding: 5px 10px 6px; } .tv-row { margin-top: 8px; padding-bottom: 2px; } .tv-sub { margin-top: 8px; } .tv-panel h2 { margin-bottom: 8px; }
+}

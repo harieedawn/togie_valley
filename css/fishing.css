@@ -1,0 +1,28 @@
+/* Togie Valley - fishing.css (Stage 9): fishing HUD, power meter, reel minigame, catch card. Uses ui.css tokens. */
+.tv-fishhud { position: absolute; left: 50%; bottom: calc(86px + var(--safe-b)); transform: translateX(-50%); width: min(calc(92 * var(--uvw, 1vw)), 340px); padding: 8px 10px; display: flex; flex-direction: column; gap: 6px; pointer-events: none; z-index: 2; }
+.tv-fishhud .row { display: flex; align-items: center; gap: 8px; }
+.tv-fishhud .rod { flex: 1; display: flex; align-items: center; gap: 6px; font: 700 14px/1.2 var(--font-d); min-width: 0; }
+.tv-fishhud .rod span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tv-fishhud .tv-btn { pointer-events: auto; min-height: 48px; min-width: 48px; padding: 0 10px; font-size: 15px; display: flex; align-items: center; gap: 4px; }
+.tv-fishhud .tv-btn.pull { --b: var(--coral); --b-hi: var(--coral-hi); --b-d: var(--coral-d); }
+.tv-fishhud .msg { font: 600 13px/1.3 var(--font-body); text-align: center; }
+.tv-fishhud .meter { position: relative; height: 24px; display: flex; border: 3px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--paper-3); }
+.tv-fishhud .band.s { background: #a9e0f0; } .tv-fishhud .band.m { background: #6bb6ee; } .tv-fishhud .band.d { background: #3f7fbf; }
+.tv-fishhud .needle { position: absolute; top: -2px; bottom: -2px; width: 6px; margin-left: -3px; border-radius: 3px; background: var(--gold); border: 2px solid var(--line); left: 0; }
+.tv-fishcatch { position: absolute; inset: 0; pointer-events: auto; touch-action: none; z-index: 3; }
+.tv-bang { position: absolute; left: 0; top: 0; z-index: 4; pointer-events: none; width: 64px; height: 64px; border-radius: 50%; background: var(--coral); color: #fff; border: 4px solid var(--line); font: 800 42px/54px var(--font-d); text-align: center; box-shadow: 0 4px 0 var(--shade); animation: tv-bang-pulse .32s ease-in-out infinite; }
+@keyframes tv-bang-pulse { 0%, 100% { scale: 1; } 50% { scale: 1.22; } }
+.tv-reel { position: absolute; left: 50%; top: 50%; z-index: 4; width: 112px; height: min(calc(60 * var(--uvh, 1vh)), 340px); margin: 0; transform: translate(-50%, -52%); padding: 10px; display: flex; gap: 10px; pointer-events: none; animation: tv-fish-pop .22s var(--ease-pop); }
+.tv-reel .track { position: relative; flex: 1; border: 3px solid var(--line); border-radius: 12px; background: #a9d6ea; overflow: hidden; }
+.tv-reel .zone { position: absolute; left: 0; right: 0; top: 0; background: rgba(121,199,90,.78); border-top: 3px solid var(--green-d); border-bottom: 3px solid var(--green-d); will-change: transform; }
+.tv-reel .zone.on { background: rgba(169,224,131,.92); }
+.tv-reel .fishico { position: absolute; left: 50%; top: 0; width: 36px; height: 36px; margin-left: -18px; will-change: transform; }
+.tv-reel .prog { width: 22px; border: 3px solid var(--line); border-radius: 11px; background: var(--paper-3); overflow: hidden; display: flex; align-items: flex-end; }
+.tv-reel .fill { width: 100%; height: 100%; background: var(--gold); transform-origin: 50% 100%; transform: scaleY(.3); }
+.tv-reel .hint { position: absolute; left: 50%; bottom: -30px; transform: translateX(-50%); white-space: nowrap; font: 700 13px var(--font-d); color: #fff; text-shadow: 0 2px 0 var(--line), 0 0 4px var(--line); }
+.tv-fishres { position: absolute; left: 50%; top: 38%; z-index: 4; transform: translate(-50%, -50%); padding: 12px 18px; text-align: center; pointer-events: none; min-width: 150px; }
+.tv-fishres.pop { animation: tv-fish-pop .3s var(--ease-pop); }
+.tv-fishres .nm { font: 800 20px var(--font-d); } .tv-fishres .sub { font: 600 13px var(--font-body); min-height: 16px; }
+.tv-fishres .tag { display: inline-block; margin-top: 4px; padding: 2px 10px; border-radius: 10px; background: var(--gold); border: 2px solid var(--line); font: 800 13px var(--font-d); }
+@keyframes tv-fish-pop { from { opacity: 0; scale: .8; } to { opacity: 1; scale: 1; } }
+@media (prefers-reduced-motion: reduce) { .tv-reel, .tv-fishres.pop { animation: none; } }
